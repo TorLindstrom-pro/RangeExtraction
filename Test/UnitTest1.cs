@@ -19,4 +19,12 @@ public class UnitTest1
         
         Assert.Equal("1,3,5,7,9", result);
     }
+    
+    [Fact(DisplayName = "Two numbers in a range is returned with a dash separator")]
+    public void TwoNumbersInARange_IsReturnedWithDashSeparator()
+    {
+        var result = Kata.Extract([1,2]);
+        
+        Assert.Equal("1-2", result);
+    }
 }
