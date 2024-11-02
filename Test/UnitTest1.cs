@@ -11,12 +11,12 @@ public class UnitTest1
         
         Assert.Equal("1", result);
     }
-    
-    [Fact(DisplayName = "Two numbers is returned with comma separator")]
-    public void TwoNumbers_IsReturnedWithCommaSeparator()
+
+    [Fact(DisplayName = "All numbers not in a range is returned with comma separators")]
+    public void AllNumbersNotInARange_IsReturnedWithCommaSeparators()
     {
-        var result = Kata.Extract([1,3]);
+        var result = Kata.Extract([1,3,5,7,9]);
         
-        Assert.Equal("1,3", result);
+        Assert.Equal("1,3,5,7,9", result);
     }
 }
