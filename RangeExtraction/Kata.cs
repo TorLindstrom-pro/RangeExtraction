@@ -11,6 +11,7 @@ public class Kata
         {
             var rangeStarts = i == 0 || ints[i - 1] != ints[i] - 1;
             var rangeContinues = i != ints.Length - 1 && ints[i + 1] == ints[i] + 1;
+            var end = i == ints.Length - 1;
             
             if (rangeStarts && rangeContinues)
             {
@@ -18,10 +19,10 @@ public class Kata
                 result += ints[i];
             }
             else if (rangeStarts)
-                result += ints[i] + (i == ints.Length - 1 ? "" : ",");
+                result += ints[i] + (end ? "" : ",");
             else if (!rangeContinues)
             {
-                result += (i - rangeStartIndex > 1 ? "-" : ",") + ints[i];
+                result += (i - rangeStartIndex > 1 ? "-" : ",") + ints[i] + (end ? "" : ",");
                 rangeStartIndex = i;
             }
         }
