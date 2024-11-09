@@ -20,11 +20,11 @@ public class UnitTest1
         Assert.Equal("1,3,5,7,9", result);
     }
     
-    [Fact(DisplayName = "Two numbers in a range is returned with a dash separator")]
-    public void TwoNumbersInARange_IsReturnedWithDashSeparator()
+    [Fact(DisplayName = "Two numbers is not a range and is still returned with a comma separator")]
+    public void TwoNumbersInARange_IsReturnedWithCommaSeparator()
     {
         var result = Kata.Extract([1,2]);
         
-        Assert.Equal("1-2", result);
+        Assert.Equal("1,2", result);
     }
 }

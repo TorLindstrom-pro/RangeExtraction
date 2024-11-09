@@ -20,7 +20,7 @@ public class Kata
 
     private static string ChooseSeparator(int i, int idx)
     {
-        return _ints![idx + 1] == i + 1 ? "-" : ",";
+        return ",";
     }
 
     private static bool IsLastNumber(int idx)
