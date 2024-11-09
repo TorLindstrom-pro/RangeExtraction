@@ -2,34 +2,30 @@ namespace RangeExtraction;
 
 public class Kata
 {
-    private static int[]? _ints;
-
     public static string Extract(int[] ints)
     {
-        _ints = ints;
+        var result = "";
         
-        return _ints
-            .Select(SeparatorForEachNumber())
-            .Aggregate("", IntoAString());
-    }
+        var rangeStartIndex = 0;
+        for (var i = 0; i < ints.Length; i++)
+        {
+            var rangeStarts = i == 0 || ints[i - 1] != ints[i] - 1;
+            var rangeContinues = i != ints.Length - 1 && ints[i + 1] == ints[i] + 1;
+            
+            if (rangeStarts && rangeContinues)
+            {
+                rangeStartIndex = i;
+                result += ints[i];
+            }
+            else if (rangeStarts)
+                result += ints[i] + (i == ints.Length - 1 ? "" : ",");
+            else if (!rangeContinues)
+            {
+                result += (i - rangeStartIndex > 1 ? "-" : ",") + ints[i];
+                rangeStartIndex = i;
+            }
+        }
 
-    private static Func<int, int, string> SeparatorForEachNumber()
-    {
-        return (number, index) => number + (IsLastNumber(index) ? "" : ChooseSeparator(number, index));
-    }
-
-    private static string ChooseSeparator(int i, int idx)
-    {
-        return ",";
-    }
-
-    private static bool IsLastNumber(int idx)
-    {
-        return idx == _ints!.Length - 1;
-    }
-
-    private static Func<string, string, string> IntoAString()
-    {
-        return (accumulate, current) => accumulate + current;
+        return result;
     }
 }

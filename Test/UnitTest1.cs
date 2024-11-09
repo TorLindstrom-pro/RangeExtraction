@@ -27,4 +27,12 @@ public class UnitTest1
         
         Assert.Equal("1,2", result);
     }
+    
+    [Fact(DisplayName = "Three continuous numbers is a range and is returned in range notation")]
+    public void ThreeNumbersInARange_IsReturnedWithDashSeparator()
+    {
+        var result = Kata.Extract([1,2,3]);
+        
+        Assert.Equal("1-3", result);
+    }
 }
