@@ -13,17 +13,14 @@ public class Kata
             var rangeContinues = i != ints.Length - 1 && ints[i + 1] == ints[i] + 1;
             var end = i == ints.Length - 1;
             
-            if (rangeStarts && rangeContinues)
+            if (rangeStarts)
             {
+                result += ints[i] + (end || rangeContinues ? "" : ",");
                 rangeStartIndex = i;
-                result += ints[i];
             }
-            else if (rangeStarts)
-                result += ints[i] + (end ? "" : ",");
             else if (!rangeContinues)
             {
                 result += (i - rangeStartIndex > 1 ? "-" : ",") + ints[i] + (end ? "" : ",");
-                rangeStartIndex = i;
             }
         }
 
