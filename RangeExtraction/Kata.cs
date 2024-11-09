@@ -4,26 +4,42 @@ public class Kata
 {
     public static string Extract(int[] ints)
     {
-        var result = "";
+        const string separator = ",";
+        const string rangeSeparator = "-";
         
+        var result = "";
         var rangeStartIndex = 0;
-        for (var i = 0; i < ints.Length; i++)
+
+        for (var index = 0; index < ints.Length; index++)
         {
-            var rangeStarts = i == 0 || ints[i - 1] != ints[i] - 1;
-            var rangeContinues = i != ints.Length - 1 && ints[i + 1] == ints[i] + 1;
-            var end = i == ints.Length - 1;
-            
+            var currentNumber = ints[index];
+            var isLastNumber = index == ints.Length - 1;
+
+            var rangeStarts = index == 0 || !ContinuousWithPrevious(index, currentNumber);
+            var rangeContinues = !isLastNumber && ContinuousWithNext(index, currentNumber);
+
             if (rangeStarts)
             {
-                result += ints[i] + (end || rangeContinues ? "" : ",");
-                rangeStartIndex = i;
+                result += AppendRangeStart(currentNumber, isLastNumber, rangeContinues);
+                rangeStartIndex = index;
             }
             else if (!rangeContinues)
             {
-                result += (i - rangeStartIndex > 1 ? "-" : ",") + ints[i] + (end ? "" : ",");
+                var rangeLength = index - rangeStartIndex;
+                result += AppendRangeEnd(rangeLength, currentNumber, isLastNumber);
             }
         }
 
         return result;
+
+        bool ContinuousWithPrevious(int index, int currentNumber) => ints[index - 1] == currentNumber - 1;
+
+        bool ContinuousWithNext(int index, int currentNumber) => ints[index + 1] == currentNumber + 1;
+
+        string AppendRangeStart(int currentNumber, bool isLastNumber, bool rangeContinues) => 
+            currentNumber + (isLastNumber || rangeContinues ? "" : separator);
+
+        string AppendRangeEnd(int rangeLength, int currentNumber, bool isLastNumber) => 
+            (rangeLength > 1 ? rangeSeparator : separator) + currentNumber + (isLastNumber ? "" : separator);
     }
 }
